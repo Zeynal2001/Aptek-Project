@@ -72,7 +72,7 @@ void DisplayMenu()
     Console.WriteLine("\n-----------------------------------");
     Console.ForegroundColor = ConsoleColor.Blue;
     Console.WriteLine("xoş gəlmiziniz");
-    Console.WriteLine("xaiş edirik proqrama giriş etmək üçün aşağıda istifadəçi adınızı və şifrənizi daxil edin: ");
+    Console.WriteLine("xaiş edirik proqrama giriş etmək üçün aşağıda mail adresinizi və şifrənizi daxil edin: ");
     Console.ForegroundColor = ConsoleColor.White;
 
     //console.writeline("1. kitabxanadakı element siyahısı");
