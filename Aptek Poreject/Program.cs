@@ -85,6 +85,7 @@ try
         switch (secim)
         {
             case 1:
+                // Programın bağlanması.
                 Console.WriteLine("Program bağlandı");
                 return;
             case 2:
@@ -92,17 +93,23 @@ try
                 aptek.DisplayDermanlar();
                 break;
             case 3:
+                // Dərmanın axtarılması.
+
+                break;
+            case 4:
                 // Aptekə yeni dərmanın əlavə edilməsi.
                 aptek.AddProduct();
                 break;
-            case 4:
-
-                break;
             case 5:
+                // Dərmanın bazadan silinməsi
+                break;
+            case 6:
+                // Dərmanın məlumanlarının yenilənmısi.
 
                 break;
 
             default:
+
                 break;
         }
 
@@ -126,12 +133,13 @@ void EmployeeDisplayMenu()
 {
     Console.WriteLine("\n-----------------------------------");
     Console.ForegroundColor = ConsoleColor.Blue;
-    Console.WriteLine("Aşağıda etmək istədiyiniz əməliyyatı seçin (1/5)");
-    Console.WriteLine("1. Proqramdan çıxmaq");
+    Console.WriteLine("Aşağıda etmək istədiyiniz əməliyyatı seçin (1/6)");
+    Console.WriteLine("1. Proqramı bağlamaq");
     Console.WriteLine("2. Aptekdəki dərman siyahısı");
-    Console.WriteLine("3. Dərmanı əlavə etmək");
-    Console.WriteLine("4. Dərmanı silmək");
-    Console.WriteLine("5. Dərmanın məlumanlarını yeniləmək ");
+    Console.WriteLine("3. Dərmanı axtarmaq");
+    Console.WriteLine("4. Dərmanı əlavə etmək");
+    Console.WriteLine("5. Dərmanı silmək");
+    Console.WriteLine("6. Dərmanın məlumanlarını yeniləmək ");
     Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine("\n-----------------------------------");
 }
