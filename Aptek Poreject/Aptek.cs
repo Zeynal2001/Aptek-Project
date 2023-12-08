@@ -13,7 +13,7 @@ namespace Aptek_Poreject
         public Aptek()
         {
             //Employee isci = new Employee();
-            //isci.Iscimail = "zeynal@mail.com";
+            //isci.IsciMail = "zeynal@mail.com";
             //isci.IsciSifresi = "zeynalov";
             //listemployees.Add( isci );
             //SaveEmployees();
@@ -49,16 +49,6 @@ namespace Aptek_Poreject
             else
             {
                 return listim;
-            }
-        }
-
-        //Product derman = new Product();
-        public void DisplayDermanlar()
-        {
-            Console.WriteLine("\nAptekdəki dərmanlar:");
-            foreach (var item in listproducts)
-            {
-                Console.WriteLine($"Dərmanın adı: {item.Name} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
             }
         }
         #endregion
@@ -117,11 +107,22 @@ namespace Aptek_Poreject
             }
         }
 
+        public void DisplayDermanlar()
+        {
+            Console.WriteLine("\nAptekdəki dərmanlar:");
+            foreach (var item in listproducts)
+            {
+                Console.WriteLine($"Dərmanın adı: {item.Name} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
+            }
+        }
+
         //public void RemoveProduct(Product product)
         //{
         //    listproducts.Remove(product);
         //}
+
+        //Product derman = new Product();
         #endregion
-        
+
     }
 }

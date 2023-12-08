@@ -12,7 +12,10 @@ namespace Aptek_Poreject
         public string IsciMail { get; set; }
         public string IsciSifresi { get; set; }
 
-        public Employee() { }
+        public Employee()
+        {
+
+        }
         public Employee(string iscimail, string iscisifresi)
         {
             IsciMail = iscimail;
