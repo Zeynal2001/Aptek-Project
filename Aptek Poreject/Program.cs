@@ -1,6 +1,7 @@
 ﻿using Aptek_Poreject;
 using System.Numerics;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -19,10 +20,10 @@ if (int.TryParse(Console.ReadLine(), out secim2))
         {
             case 1:
                 //İşçi kimi giriş etmək.
+                Employee isci2 = new Employee();
                 LoginAttemp.LoginAttemps();
                 Menu.EmployeeDisplayMenu();
                 Aptek aptek = new Aptek();
-
                 int secim1 = int.Parse(Console.ReadLine());
                 try
                 {
@@ -34,34 +35,43 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                             Console.WriteLine("Proqram bağlandı.");
                             return;
                         case 2:
-                            // Aptekdəki dərmanların siyahısının göstərilməsi.
-                            aptek.DisplayDermanlar();
+                            // Yeni işçinin əlavə edilməsi.
+                            //isci2.AddEmployee();
                             break;
                         case 3:
-                            // Dərmanın axtarılması.
+                            // İşçi siyahısının göstərilməsi.
 
                             break;
                         case 4:
+                            // İşçi hesabının axtarılması.
+
+                            break;
+                        case 5:
+                            // İşçi məlumanlarının yenilənmısi.
+
+                            break;
+                        case 6:
+                            // Mövcud olan işçi hesabının bazadan silinməsi
+                            break;
+                        case 7:
                             // Aptekə yeni dərmanın əlavə edilməsi.
                             aptek.AddProduct();
                             break;
-                        case 5:
-                            // Dərmanın bazadan silinməsi
-                            break;
-                        case 6:
-                            // Dərmanın məlumanlarının yenilənmısi.
-
-                            break;
-                        case 7:
-
-                            break;
                         case 8:
-
+                            // Aptekdəki dərmanların siyahısının göstərilməsi.
+                            aptek.DisplayDermanlar();
                             break;
                         case 9:
+                            // Dərmanın axtarılması.
+                            break;
+                        case 10:
+                            // Dərman məlumanlarının yenilənmısi.
 
                             break;
-
+                        case 11:
+                            // Mövcud olan dərmanın bazadan silinməsi
+                            
+                            break;
                         default:
                             //Yanlış seçim
 

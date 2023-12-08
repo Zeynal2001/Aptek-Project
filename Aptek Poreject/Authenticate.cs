@@ -11,7 +11,7 @@ namespace Aptek_Poreject
         
         public static bool AuthenticateEmployee()
         {
-            Aptek aptek = new();
+            Employee staff = new Employee();
 
             // İstifadəçi adı və şifrəni almaq üçün istifadəçidən soruşulur.
             Console.WriteLine("\n-----------------------------------");
@@ -19,6 +19,25 @@ namespace Aptek_Poreject
             Console.WriteLine("Xaiş edirik işçi kimi proqrama giriş etmək üçün aşağıda email adresinizi və şifrənizi daxil edin: ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n-----------------------------------");
+
+            Console.WriteLine("Adınızı daxil edin: ");
+            string ad = Console.ReadLine();
+
+            // ad'ın boş vəya null olduğu yoxlanılır.
+            if (ad == null)
+            {
+                Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
+            }
+
+            Console.WriteLine("Soyadınızı daxil edin: ");
+            string soyad = Console.ReadLine();
+
+            // soyad'ın boş vəya null olduğu yoxlanılır.
+            if (soyad == null)
+            {
+                Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
+            }
+
             Console.WriteLine("Email'i daxil edin: ");
             string email = Console.ReadLine();
 
@@ -36,11 +55,15 @@ namespace Aptek_Poreject
                 Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
             }
 
-            var isciler = aptek.GetEmplooyes();
+            var isciler = staff.GetEmplooyes();
 
             foreach (var isci in isciler)
             {
-                if (isci.IsciSifresi == password && isci.IsciMail == email)
+                //if ()
+                //{
+                //    return true;
+                //}
+                if (isci.FName == ad && isci.LName == soyad || isci.IsciSifresi == password && isci.IsciMail == email)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Giriş uğurlu oldu.");

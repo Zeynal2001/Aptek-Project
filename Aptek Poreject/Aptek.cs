@@ -4,9 +4,8 @@ namespace Aptek_Poreject
 {
     public class Aptek
     {
-        string employeePath = "isciler.xml";
+        
         string productPath = "produkt.xml";
-        private List<Employee> listemployees = new List<Employee>();
         public List<Product> listproducts;
 
 
@@ -20,38 +19,7 @@ namespace Aptek_Poreject
             listproducts = GetProducts();
         }
 
-        #region Isci
-        public void AddEmployee(Employee employee)
-        {
-            listemployees = GetEmplooyes();
-            listemployees.Add(employee);
-            SaveEmployees();
-        }
-
-        public void SaveEmployees()
-        {
-            var file = File.Open(employeePath, FileMode.Create);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            serializer.Serialize(file, listemployees);
-            file.Close();
-        }
-
-        public List<Employee> GetEmplooyes()
-        {
-            var file = File.OpenRead(employeePath);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            var listim = (List<Employee>?)serializer.Deserialize(file);
-            file.Close();
-            if (listim == null)
-            {
-                return new List<Employee>();
-            }
-            else
-            {
-                return listim;
-            }
-        }
-        #endregion
+        
 
 
         #region Product/Derman
