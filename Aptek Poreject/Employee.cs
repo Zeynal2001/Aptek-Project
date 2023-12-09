@@ -9,9 +9,7 @@ namespace Aptek_Poreject
 {
     public class Employee
     {
-        Aptek aptekim = new Aptek();
-        string employeePath = "isciler.xml";
-        private List<Employee> listemployees = new List<Employee>();
+        
 
         //string IsciAdi {  get; set; }
         public string FName { get; set; }
@@ -21,7 +19,6 @@ namespace Aptek_Poreject
 
         public Employee()
         {
-
         }
         public Employee(string fName, string lName ,string isciMail, string isciSifresii)
         {
@@ -32,6 +29,8 @@ namespace Aptek_Poreject
         }
 
         #region Isci
+        //Aptek aptekim = new Aptek();
+
 
         //public void AddProduct()
         //{
@@ -50,7 +49,26 @@ namespace Aptek_Poreject
         //    SaveProduct();
         //}
 
-        public void AddEmployee()
+        //public void AddEmployee()
+        //{
+        //    Console.WriteLine("İşçinin adını daxil edin:");
+        //    string isciAdi = Console.ReadLine();
+        //    Console.WriteLine("İşçinin soyadını daxil edin: ");
+        //    string isciSoyadi = Console.ReadLine();
+        //    Console.WriteLine("İşçinin email adresini daxil edin:");
+        //    string isciEmail = Console.ReadLine();
+        //    Console.WriteLine("İşçinin şifrəsini daxil edin:");
+        //    string isciSifresi = Console.ReadLine();
+
+        //    Employee iscim = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciSifresii: isciSifresi);
+        //    listemployees = GetEmplooyes();
+        //    listemployees.Add(iscim);
+        //    SaveEmployees();
+        //}
+        string employeePath = "isciler.xml";
+        public List<Employee> listemployees = new List<Employee>();
+
+        public void AddEmployee(Employee employee)
         {
             Console.WriteLine("İşçinin adını daxil edin:");
             string isciAdi = Console.ReadLine();
@@ -61,12 +79,11 @@ namespace Aptek_Poreject
             Console.WriteLine("İşçinin şifrəsini daxil edin:");
             string isciSifresi = Console.ReadLine();
 
-            Employee iscim = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciSifresii: isciSifresi);
+            Employee iscim7 = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciSifresii: isciSifresi);
             listemployees = GetEmplooyes();
-            listemployees.Add(iscim);
+            listemployees.Add(iscim7);
             SaveEmployees();
         }
-
         public void SaveEmployees()
         {
             var file = File.Open(employeePath, FileMode.Create);

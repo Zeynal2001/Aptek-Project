@@ -20,23 +20,23 @@ namespace Aptek_Poreject
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n-----------------------------------");
 
-            Console.WriteLine("Adınızı daxil edin: ");
-            string ad = Console.ReadLine();
+            //Console.WriteLine("Adınızı daxil edin: ");
+            //string ad = Console.ReadLine();
 
-            // ad'ın boş vəya null olduğu yoxlanılır.
-            if (ad == null)
-            {
-                Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
-            }
+            //// ad'ın boş vəya null olduğu yoxlanılır.
+            //if (ad == null)
+            //{
+            //    Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
+            //}
 
-            Console.WriteLine("Soyadınızı daxil edin: ");
-            string soyad = Console.ReadLine();
+            //Console.WriteLine("Soyadınızı daxil edin: ");
+            //string soyad = Console.ReadLine();
 
-            // soyad'ın boş vəya null olduğu yoxlanılır.
-            if (soyad == null)
-            {
-                Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
-            }
+            //// soyad'ın boş vəya null olduğu yoxlanılır.
+            //if (soyad == null)
+            //{
+            //    Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
+            //}
 
             Console.WriteLine("Email'i daxil edin: ");
             string email = Console.ReadLine();
@@ -63,7 +63,7 @@ namespace Aptek_Poreject
                 //{
                 //    return true;
                 //}
-                if (isci.FName == ad && isci.LName == soyad || isci.IsciSifresi == password && isci.IsciMail == email)
+                if (isci.IsciSifresi == password && isci.IsciMail == email)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Giriş uğurlu oldu.");
@@ -72,6 +72,7 @@ namespace Aptek_Poreject
                 }
             }
             return false;
+            // isci.FName == ad && isci.LName == soyad
         }
     }
 }

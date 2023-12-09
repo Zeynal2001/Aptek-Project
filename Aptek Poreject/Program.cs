@@ -20,10 +20,12 @@ if (int.TryParse(Console.ReadLine(), out secim2))
         {
             case 1:
                 //İşçi kimi giriş etmək.
-                Employee isci2 = new Employee();
+                
+                Employee isciswitch = new Employee();
+                
+                Aptek aptek = new Aptek();
                 LoginAttemp.LoginAttemps();
                 Menu.EmployeeDisplayMenu();
-                Aptek aptek = new Aptek();
                 int secim1 = int.Parse(Console.ReadLine());
                 try
                 {
@@ -36,7 +38,7 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                             return;
                         case 2:
                             // Yeni işçinin əlavə edilməsi.
-                            //isci2.AddEmployee();
+                            isciswitch.AddEmployee(isciswitch);
                             break;
                         case 3:
                             // İşçi siyahısının göstərilməsi.
