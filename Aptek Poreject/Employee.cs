@@ -15,56 +15,24 @@ namespace Aptek_Poreject
         public string FName { get; set; }
         public string LName { get; set; }
         public string IsciMail { get; set; }
-        public string IsciSifresi { get; set; }
+        public string IsciSifresii { get; set; }
+        public string IsciNomersi { get; set; }
+
 
         public Employee()
         {
         }
-        public Employee(string fName, string lName ,string isciMail, string isciSifresii)
+        public Employee(string fName, string lName ,string isciMail, string isciPassword, string isciPass)
         {
             FName = fName;
             LName = lName;
             IsciMail = isciMail;
-            IsciSifresi = isciSifresii;
+            IsciSifresii = isciPassword;
+            IsciNomersi = isciPass;
         }
 
         #region Isci
-        //Aptek aptekim = new Aptek();
-
-
-        //public void AddProduct()
-        //{
-        //    Console.WriteLine("Dermanin adini adini daxil edin:");
-        //    string dermanAdi = Console.ReadLine();
-        //    Console.WriteLine("Dermanin daxil oldugu kateqoriyani daxil edin: ");
-        //    string dermanKateqoriya = Console.ReadLine();
-        //    Console.WriteLine("Dermanin miqdarini daxil edin: ");
-        //    int dermanMiqdari = int.Parse(Console.ReadLine());
-        //    Console.WriteLine("Dermanin qiymetini daxil edin");
-        //    double dermaninQiymeti = double.Parse(Console.ReadLine());
-
-        //    Product yeniproduct = new Product(name: dermanAdi, category: dermanKateqoriya, price: dermaninQiymeti, quantity: dermanMiqdari);
-        //    listproducts = GetProducts();
-        //    listproducts.Add(yeniproduct);
-        //    SaveProduct();
-        //}
-
-        //public void AddEmployee()
-        //{
-        //    Console.WriteLine("İşçinin adını daxil edin:");
-        //    string isciAdi = Console.ReadLine();
-        //    Console.WriteLine("İşçinin soyadını daxil edin: ");
-        //    string isciSoyadi = Console.ReadLine();
-        //    Console.WriteLine("İşçinin email adresini daxil edin:");
-        //    string isciEmail = Console.ReadLine();
-        //    Console.WriteLine("İşçinin şifrəsini daxil edin:");
-        //    string isciSifresi = Console.ReadLine();
-
-        //    Employee iscim = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciSifresii: isciSifresi);
-        //    listemployees = GetEmplooyes();
-        //    listemployees.Add(iscim);
-        //    SaveEmployees();
-        //}
+      
         string employeePath = "isciler.xml";
         public List<Employee> listemployees = new List<Employee>();
 
@@ -78,8 +46,10 @@ namespace Aptek_Poreject
             string isciEmail = Console.ReadLine();
             Console.WriteLine("İşçinin şifrəsini daxil edin:");
             string isciSifresi = Console.ReadLine();
+            Console.WriteLine("İşçinin nömrəsini daxil edin:");
+            string isciNomresi = Console.ReadLine();
 
-            Employee iscim7 = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciSifresii: isciSifresi);
+            Employee iscim7 = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciPassword: isciSifresi, isciPass: isciNomresi);
             listemployees = GetEmplooyes();
             listemployees.Add(iscim7);
             SaveEmployees();
@@ -107,6 +77,30 @@ namespace Aptek_Poreject
                 return listim;
             }
         }
+
+        //////public void SearchEmployee()
+        //////{
+        //////    Console.WriteLine("\nAxtardığınız işçinin adını daxil edin: ");
+
+        //////    string searchName = Console.ReadLine();
+
+        //////    bool found = false;
+
+        //////    foreach (var item in listemployees)
+        //////    {
+        //////        if (item.LName.ToLower() == searchName.ToLower())
+        //////        {
+        //////            found = true;
+
+        //////            if (item is )
+        //////            {
+                        
+        //////            }
+        //////        } 
+        //////    }
+        //////}
+
+
         #endregion
     }
 }

@@ -63,7 +63,7 @@ namespace Aptek_Poreject
                 //{
                 //    return true;
                 //}
-                if (isci.IsciSifresi == password && isci.IsciMail == email)
+                if (isci.IsciSifresii == password && isci.IsciMail == email)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Giriş uğurlu oldu.");
