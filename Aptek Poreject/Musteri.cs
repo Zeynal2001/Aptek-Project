@@ -8,15 +8,22 @@ namespace Aptek_Poreject
 {
     public class Musteri
     {
+        public string MusteriAdi { get; set; }
+        public string MusteriSoyadi { get; set; }
         public string MusteriMail { get; set; }
         public string MusteriSifresi { get; set; }
+        public string MusteriNomresi { get; set; }
+
 
         public Musteri() { }
 
-        public Musteri(string musterimail, string musterisifresi)
+        public Musteri(string musteriAdi, string musteriSoyadi, string musteriMail, string musteriSifresi, string musteriNomresi)
         {
-            MusteriMail = musterimail;
-            MusteriSifresi = musterisifresi;
+            MusteriAdi = musteriAdi;
+            MusteriSoyadi = musteriSoyadi;
+            MusteriMail = musteriMail;
+            MusteriSifresi = musteriSifresi;
+            MusteriNomresi = musteriNomresi;
         }
     }
     

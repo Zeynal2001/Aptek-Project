@@ -8,10 +8,65 @@ namespace Aptek_Poreject
 {
     public static class Authenticate
     {
-        
+        public static bool AuthenticateMusteri()
+        {
+            Console.WriteLine("\n-----------------------------------");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Xaiş edirik işçi kimi proqrama giriş etmək üçün aşağıda email adresinizi və şifrənizi daxil edin: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n-----------------------------------");
+
+            Console.WriteLine("Maili daxil edn");
+            string musteriMail = Console.ReadLine();
+
+            Console.WriteLine("Sifreni daxil edin");
+            string musteriSifre = Console.ReadLine();
+
+
+            if (musteriMail == "musteri@mail.com" && musteriSifre == "musteri123")
+            {
+                return true;
+
+
+            }
+
+            return false;
+
+        }
+
+        public static bool AuthenticateAdmin()
+        {
+            Console.WriteLine("\n-----------------------------------");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Xaiş edirik işçi kimi proqrama giriş etmək üçün aşağıda email adresinizi və şifrənizi daxil edin: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n-----------------------------------");
+
+            Console.WriteLine("Maili daxil edn");
+            string adminMail = Console.ReadLine();
+
+
+            Console.WriteLine("Sifreni daxil edin");
+            string adminSifre = Console.ReadLine();
+
+
+            if (adminMail == "admin@mail.com" && adminSifre == "admin123")
+            {
+                return true;
+
+
+            }
+
+            return false;
+
+
+        }
+
+
         public static bool AuthenticateEmployee()
         {
             Employee staff = new Employee();
+            Aptek aptekim = new Aptek();
 
             // İstifadəçi adı və şifrəni almaq üçün istifadəçidən soruşulur.
             Console.WriteLine("\n-----------------------------------");
@@ -20,23 +75,6 @@ namespace Aptek_Poreject
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n-----------------------------------");
 
-            //Console.WriteLine("Adınızı daxil edin: ");
-            //string ad = Console.ReadLine();
-
-            //// ad'ın boş vəya null olduğu yoxlanılır.
-            //if (ad == null)
-            //{
-            //    Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
-            //}
-
-            //Console.WriteLine("Soyadınızı daxil edin: ");
-            //string soyad = Console.ReadLine();
-
-            //// soyad'ın boş vəya null olduğu yoxlanılır.
-            //if (soyad == null)
-            //{
-            //    Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
-            //}
 
             Console.WriteLine("Email'i daxil edin: ");
             string email = Console.ReadLine();
@@ -55,14 +93,10 @@ namespace Aptek_Poreject
                 Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
             }
 
-            var isciler = staff.GetEmplooyes();
+            var isciler = aptekim.GetEmplooyes();
 
             foreach (var isci in isciler)
             {
-                //if ()
-                //{
-                //    return true;
-                //}
                 if (isci.IsciSifresii == password && isci.IsciMail == email)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -74,5 +108,7 @@ namespace Aptek_Poreject
             return false;
             // isci.FName == ad && isci.LName == soyad
         }
+
+        
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Product
     {
-        public string Name { get; set; }
+        public string PName { get; set; }
         public string Category { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
@@ -11,9 +11,9 @@
         {
             
         }
-        public Product(string name, string category, double price, int quantity)
+        public Product(string pname, string category, double price, int quantity)
         {
-            Name = name;
+            PName = pname;
             Category = category;
             Price = price;
             Quantity = quantity;

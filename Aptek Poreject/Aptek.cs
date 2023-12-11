@@ -1,14 +1,34 @@
-﻿using System.Xml.Serialization;
+﻿using System.Dynamic;
+using System.Xml.Serialization;
 
 namespace Aptek_Poreject
 {
     public class Aptek
     {
+        string adminPath = "admin.xml";
+
         
+
         string productPath = "produkt.xml";
         public List<Product> listproducts;
+
         string employeePath = "isciler.xml";
-        public List<Employee> listemployees = new List<Employee>();
+        private List<Employee> listemployees           //= new List<Employee>();
+        {
+            get
+            {
+                if (File.Exists(employeePath))
+                {
+                    return GetEmplooyes();
+                }
+                else
+                {
+                    return new List<Employee>();
+                }
+            }
+
+            set { }
+        }
 
         Employee isci3 = new Employee();
         public Aptek()
@@ -18,29 +38,28 @@ namespace Aptek_Poreject
             //isci.IsciSifresi = "zeynalov";
             //listemployees.Add( isci );
             //SaveEmployees();
-            isci3.listemployees = isci3.GetEmplooyes();
+            //if (File.Exists(employeePath))
+            //{
+            //    listemployees = GetEmplooyes();
+            //}
             listproducts = GetProducts();
         }
 
-        #region Isci
 
-        //public void AddEmployee(Employee employee)
-        //{
-        //    Console.WriteLine("İşçinin adını daxil edin:");
-        //    string isciAdi = Console.ReadLine();
-        //    Console.WriteLine("İşçinin soyadını daxil edin: ");
-        //    string isciSoyadi = Console.ReadLine();
-        //    Console.WriteLine("İşçinin email adresini daxil edin:");
-        //    string isciEmail = Console.ReadLine();
-        //    Console.WriteLine("İşçinin şifrəsini daxil edin:");
-        //    string isciSifresi = Console.ReadLine();
 
-        //    Employee iscim = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciSifresii: isciSifresi);
-        //    isci3.listemployees = isci3.GetEmplooyes();
-        //    isci3.listemployees.Add(iscim);
-        //    isci3.SaveEmployees();
-        //}
+        #region Isci/Admin
 
+        public void AddEmployee(Employee employee)
+        {
+            //if (File.Exists(employeePath))
+            //{
+            //    listemployees = GetEmplooyes();
+            //}
+            
+            
+            listemployees.Add(employee);
+            SaveEmployees();
+        }
         public void SaveEmployees()
         {
             var file = File.Open(employeePath, FileMode.Create);
@@ -51,6 +70,10 @@ namespace Aptek_Poreject
 
         public List<Employee> GetEmplooyes()
         {
+            if (!File.Exists(employeePath))
+            {
+                return new();
+            }
             var file = File.OpenRead(employeePath);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
             var listim = (List<Employee>?)serializer.Deserialize(file);
@@ -65,8 +88,41 @@ namespace Aptek_Poreject
             }
         }
 
+
+        public void SearchEmployee()
+        {
+            Console.WriteLine("\nAxtardığınız işçinin adını daxil edin: ");
+            string searchName = Console.ReadLine();
+
+            Console.WriteLine("\nAxtardığınız işçinin soyadını daxil edin: ");
+            string searchLastName = Console.ReadLine();
+
+            bool found = false;
+
+            foreach (var item in listemployees)
+            {
+                if (item.LName.ToLower() == searchName.ToLower() && item.LName.ToLower() == searchLastName.ToLower())
+                {
+                    found = true;
+
+                    if (item is Employee isci)
+                    {
+                        Console.WriteLine($"Tapildi: Adı: {isci.LName} - Soyadı: {isci.LName}");
+                    }
+                }
+            }
+
+            if (!found)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Axtarışa uyğun işçi tapılmadı.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+
         #endregion
-        
+
+
 
 
         #region Product/Derman
@@ -84,7 +140,7 @@ namespace Aptek_Poreject
             Console.WriteLine("Dermanin qiymetini daxil edin");
             double dermaninQiymeti = double.Parse(Console.ReadLine());
 
-            Product yeniproduct = new Product(name:dermanAdi, category:dermanKateqoriya, price:dermaninQiymeti, quantity:dermanMiqdari);
+            Product yeniproduct = new Product(pname:dermanAdi, category:dermanKateqoriya, price:dermaninQiymeti, quantity:dermanMiqdari);
             listproducts = GetProducts();
             listproducts.Add(yeniproduct);
             SaveProduct();
@@ -127,7 +183,37 @@ namespace Aptek_Poreject
             Console.WriteLine("\nAptekdəki dərmanlar:");
             foreach (var item in listproducts)
             {
-                Console.WriteLine($"Dərmanın adı: {item.Name} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
+                Console.WriteLine($"Dərmanın adı: {item.PName} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
+            }
+        }
+
+
+        public void SearchMedicine()
+        {
+            Console.WriteLine("\nAxtardığınız dərmanın adını daxil edin: ");
+            string searchPName = Console.ReadLine();
+
+
+            bool found = false;
+
+            foreach (var item in listproducts)
+            {
+                if (item.PName.ToLower() == searchPName.ToLower())
+                {
+                    found = true;
+
+                    if (item is Product derman)
+                    {
+                        Console.WriteLine($"Tapildi: Adı: {derman.PName} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
+                    }
+                }
+            }
+
+            if (!found)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Axtarışa uyğun dərman tapılmadı.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -137,9 +223,9 @@ namespace Aptek_Poreject
         //}
 
         //Product derman = new Product();
+
+
         #endregion
-
-
 
     }
 }

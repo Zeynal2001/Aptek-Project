@@ -8,7 +8,8 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 //Console.ForegroundColor = ConsoleColor.Blue;
 
 //aptek.AddEmployee(isci);
-
+Aptek aptek = new Aptek();
+Employee iscim = new Employee();
 Menu.MainDisplayMenu();
 
 int secim2 = 0;
@@ -23,13 +24,14 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                 
                 Employee isciswitch = new Employee();
                 
-                Aptek aptek = new Aptek();
+                
                 LoginAttemp.LoginAttemps();
+                // Menyunun göstərilməsi üçün DisplayMenu metodu çağrılır.
                 Menu.EmployeeDisplayMenu();
                 int secim1 = int.Parse(Console.ReadLine());
                 try
                 {
-                    // Menyunun göstərilməsi üçün DisplayMenu metodu çağrılır.
+                    
                     switch (secim1)
                     {
                         case 1:
@@ -37,23 +39,23 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                             Console.WriteLine("Proqram bağlandı.");
                             return;
                         case 2:
-                            // Yeni işçinin əlavə edilməsi.
-                            isciswitch.AddEmployee(isciswitch);
+                            // Müştəri əlavə etmək
+                            iscim.AddMusteri();
                             break;
                         case 3:
-                            // İşçi siyahısının göstərilməsi.
+                            // Müştəri siyahısının göstərilməsi.
 
                             break;
                         case 4:
-                            // İşçi hesabının axtarılması.
+                            // Müştəri hesabının axtarılması.
 
                             break;
                         case 5:
-                            // İşçi məlumanlarının yenilənmısi.
+                            // Müştəri məlumanlarının yenilənmısi.
 
                             break;
                         case 6:
-                            // Mövcud olan işçi hesabının bazadan silinməsi
+                            // Mövcud olan Müştəri hesabının bazadan silinməsi
                             break;
                         case 7:
                             // Aptekə yeni dərmanın əlavə edilməsi.
@@ -99,11 +101,41 @@ if (int.TryParse(Console.ReadLine(), out secim2))
 
                 break;
             case 3:
-                //Proqramdan çıxış etmək.
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Proqram bağlandı.");
-                Console.ForegroundColor = ConsoleColor.White;
-                return;
+
+                //Admin kimi giriş etmək.
+                if (Authenticate.AuthenticateAdmin())
+                {
+                    Menu.AdminMenu();
+                    int deyer = int.Parse(Console.ReadLine());
+                    switch (deyer)
+                    {
+                        case 1:
+
+                            Console.WriteLine("İşçinin adını daxil edin:");
+                            string adminAdi = Console.ReadLine();
+                            Console.WriteLine("İşçinin soyadını daxil edin: ");
+                            string adminSoyadi = Console.ReadLine();
+                            Console.WriteLine("İşçinin email adresini daxil edin:");
+                            string adminEmail = Console.ReadLine();
+                            Console.WriteLine("İşçinin şifrəsini daxil edin:");
+                            string adminSifresi = Console.ReadLine();
+                            Console.WriteLine("İşçinin nömrəsini daxil edin:");
+                            string adminNomresi = Console.ReadLine();
+
+                            Employee isci5 = new Employee(isciAdi, isciSoyadi, isciEmail, isciSifresi, isciNomresi);
+                            aptek.AddEmployee(isci5);
+                            return;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Melumatlar yanlisdir");
+                    
+                }
+
+                break;
+            case 4:
+                break;
             default:
                 //Yanlış seçim
                 Console.WriteLine("Yanlış seçim etmisiniz");

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Aptek_Poreject
 {
+    
+
     public class Employee
     {
-        
+        string musteriPath = "musteriler.xml";
 
         //string IsciAdi {  get; set; }
         public string FName { get; set; }
@@ -18,6 +21,22 @@ namespace Aptek_Poreject
         public string IsciSifresii { get; set; }
         public string IsciNomersi { get; set; }
 
+        private List<Musteri> musteriList
+        {
+            get
+            {
+                if (File.Exists(musteriPath))
+                {
+                    return GetMuseteri();
+                }
+                else
+                {
+                    return new List<Musteri>();
+                }
+            }
+
+            set { }
+        }
 
         public Employee()
         {
@@ -31,46 +50,55 @@ namespace Aptek_Poreject
             IsciNomersi = isciPass;
         }
 
-        #region Isci
-      
-        string employeePath = "isciler.xml";
-        public List<Employee> listemployees = new List<Employee>();
 
-        public void AddEmployee(Employee employee)
+        
+
+        public void AddMusteri()
         {
-            Console.WriteLine("İşçinin adını daxil edin:");
-            string isciAdi = Console.ReadLine();
-            Console.WriteLine("İşçinin soyadını daxil edin: ");
-            string isciSoyadi = Console.ReadLine();
-            Console.WriteLine("İşçinin email adresini daxil edin:");
-            string isciEmail = Console.ReadLine();
-            Console.WriteLine("İşçinin şifrəsini daxil edin:");
-            string isciSifresi = Console.ReadLine();
-            Console.WriteLine("İşçinin nömrəsini daxil edin:");
-            string isciNomresi = Console.ReadLine();
+            Console.WriteLine("Müştərinin adını daxil edin:");
+            string musteriAdi = Console.ReadLine();
+            Console.WriteLine("Müştərinin soyadını daxil edin: ");
+            string musteriSoyadi = Console.ReadLine();
+            Console.WriteLine("Müştərinin email adresini daxil edin:");
+            string musteriEmail = Console.ReadLine();
+            Console.WriteLine("Müştərinin şifrəsini daxil edin:");
+            string musteriSifresi = Console.ReadLine();
+            Console.WriteLine("Müştərinin nömrəsini daxil edin:");
+            string musteriNomresi = Console.ReadLine();
 
-            Employee iscim7 = new Employee(fName: isciAdi, lName: isciSoyadi, isciMail: isciEmail, isciPassword: isciSifresi, isciPass: isciNomresi);
-            listemployees = GetEmplooyes();
-            listemployees.Add(iscim7);
-            SaveEmployees();
+            Musteri musteriobj = new Musteri(musteriAdi, musteriSoyadi, musteriEmail, musteriSifresi, musteriNomresi);
+            //Employee isci5 = new Employee(isciAdi, isciSoyadi, isciEmail, isciSifresi, isciNomresi);
+            musteriList = GetMuseteri();
+            musteriList.Add(musteriobj);
+            SaveMusteri();
+
+            //Product yeniproduct = new Product(name: dermanAdi, category: dermanKateqoriya, price: dermaninQiymeti, quantity: dermanMiqdari);
+            //listproducts = GetProducts();
+            //listproducts.Add(yeniproduct);
+            //SaveProduct();
         }
-        public void SaveEmployees()
+
+        public void SaveMusteri()
         {
-            var file = File.Open(employeePath, FileMode.Create);
+            var file = File.Open(musteriPath, FileMode.Create);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            serializer.Serialize(file, listemployees);
+            serializer.Serialize(file, musteriList);
             file.Close();
         }
 
-        public List<Employee> GetEmplooyes()
+        public List<Musteri> GetMuseteri()
         {
-            var file = File.OpenRead(employeePath);
+            if (!File.Exists(musteriPath))
+            {
+                return new();
+            }
+            var file = File.OpenRead(musteriPath);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            var listim = (List<Employee>?)serializer.Deserialize(file);
+            var listim = (List<Musteri>?)serializer.Deserialize(file);
             file.Close();
             if (listim == null)
             {
-                return new List<Employee>();
+                return new List<Musteri>();
             }
             else
             {
@@ -78,29 +106,36 @@ namespace Aptek_Poreject
             }
         }
 
-        //////public void SearchEmployee()
-        //////{
-        //////    Console.WriteLine("\nAxtardığınız işçinin adını daxil edin: ");
+        public void SearchMusteri()
+        {
+            Console.WriteLine("\nAxtardığınız müştərinin adını daxil edin: ");
+            string searchName = Console.ReadLine();
 
-        //////    string searchName = Console.ReadLine();
+            Console.WriteLine("\nAxtardığınız müştərinin soyadını daxil edin: ");
+            string searchLastName = Console.ReadLine();
 
-        //////    bool found = false;
+            bool found = false;
 
-        //////    foreach (var item in listemployees)
-        //////    {
-        //////        if (item.LName.ToLower() == searchName.ToLower())
-        //////        {
-        //////            found = true;
+            foreach (var item in musteriList)
+            {
+                if (item.MusteriAdi.ToLower() == searchName.ToLower() && item.MusteriSoyadi.ToLower() == searchLastName.ToLower())
+                {
+                    found = true;
 
-        //////            if (item is )
-        //////            {
-                        
-        //////            }
-        //////        } 
-        //////    }
-        //////}
+                    if (item is Musteri musteri)
+                    {
+                        Console.WriteLine($"Tapildi: Adı: {musteri.MusteriAdi} - Soyadı: {musteri.MusteriSoyadi}, - Mail adresi: {musteri.MusteriMail}, - Şifrəsi: {musteri.MusteriSifresi}, - Nömrəsi: {musteri.MusteriNomresi}");
+                    }
+                }
+            }
 
+            if (!found)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Axtarışa uyğun müştəri tapılmadı.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
 
-        #endregion
+        }
     }
 }
