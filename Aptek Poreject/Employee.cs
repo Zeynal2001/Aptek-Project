@@ -51,8 +51,8 @@ namespace Aptek_Poreject
         }
 
 
-        
 
+        #region Musteri
         public void AddMusteri()
         {
             Console.WriteLine("Müştərinin adını daxil edin:");
@@ -68,9 +68,9 @@ namespace Aptek_Poreject
 
             Musteri musteriobj = new Musteri(musteriAdi, musteriSoyadi, musteriEmail, musteriSifresi, musteriNomresi);
             //Employee isci5 = new Employee(isciAdi, isciSoyadi, isciEmail, isciSifresi, isciNomresi);
-            musteriList = GetMuseteri();
-            musteriList.Add(musteriobj);
-            SaveMusteri();
+            var indiki = musteriList;
+            indiki.Add(musteriobj);
+            SaveMusteri(indiki);
 
             //Product yeniproduct = new Product(name: dermanAdi, category: dermanKateqoriya, price: dermaninQiymeti, quantity: dermanMiqdari);
             //listproducts = GetProducts();
@@ -78,12 +78,21 @@ namespace Aptek_Poreject
             //SaveProduct();
         }
 
-        public void SaveMusteri()
+        public void SaveMusteri(List<Musteri>? musteris = null)
         {
-            var file = File.Open(musteriPath, FileMode.Create);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            serializer.Serialize(file, musteriList);
-            file.Close();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Musteri>));
+            if (musteris != null)
+            {
+                var file = File.Open(musteriPath, FileMode.Create);
+                serializer.Serialize(file, musteris);
+                file.Close();   
+            }
+            else
+            {
+                var file = File.Open(musteriPath, FileMode.Create);
+                serializer.Serialize(file, musteris);
+                file.Close();
+            }
         }
 
         public List<Musteri> GetMuseteri()
@@ -93,7 +102,7 @@ namespace Aptek_Poreject
                 return new();
             }
             var file = File.OpenRead(musteriPath);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Musteri>));
             var listim = (List<Musteri>?)serializer.Deserialize(file);
             file.Close();
             if (listim == null)
@@ -103,6 +112,16 @@ namespace Aptek_Poreject
             else
             {
                 return listim;
+            }
+        }
+
+        public void DisplayMusteri()
+        {
+            Console.WriteLine("\nQeydiyyatdan keçmiş müştərilər:");
+
+            foreach (var musterim in musteriList)
+            {
+                Console.WriteLine($"Müştərinin adı: {musterim.MusteriAdi} - Soyadı: {musterim.MusteriSoyadi} - Emaili: {musterim.MusteriMail} - Şifrəsi: {musterim.MusteriSifresi} - Nömrəsi: {musterim.MusteriNomresi}");
             }
         }
 
@@ -137,5 +156,7 @@ namespace Aptek_Poreject
             }
 
         }
+        #endregion
+
     }
 }

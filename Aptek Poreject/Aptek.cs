@@ -5,30 +5,30 @@ namespace Aptek_Poreject
 {
     public class Aptek
     {
-        string adminPath = "admin.xml";
-
-        
+        //string adminPath = "admin.xml";
 
         string productPath = "produkt.xml";
-        public List<Product> listproducts;
-
-        string employeePath = "isciler.xml";
-        private List<Employee> listemployees           //= new List<Employee>();
+        private List<Product> _products;
+        public List<Product> listproducts
         {
             get
             {
-                if (File.Exists(employeePath))
+                if (File.Exists(productPath))
                 {
-                    return GetEmplooyes();
+                    return GetProducts();
                 }
                 else
                 {
-                    return new List<Employee>();
+                    return new List<Product>();
                 }
             }
-
-            set { }
+            set
+            {
+                _products = value;
+            }
         }
+
+        
 
         Employee isci3 = new Employee();
         public Aptek()
@@ -44,85 +44,6 @@ namespace Aptek_Poreject
             //}
             listproducts = GetProducts();
         }
-
-
-
-        #region Isci/Admin
-
-        public void AddEmployee(Employee employee)
-        {
-            //if (File.Exists(employeePath))
-            //{
-            //    listemployees = GetEmplooyes();
-            //}
-            
-            
-            listemployees.Add(employee);
-            SaveEmployees();
-        }
-        public void SaveEmployees()
-        {
-            var file = File.Open(employeePath, FileMode.Create);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            serializer.Serialize(file, listemployees);
-            file.Close();
-        }
-
-        public List<Employee> GetEmplooyes()
-        {
-            if (!File.Exists(employeePath))
-            {
-                return new();
-            }
-            var file = File.OpenRead(employeePath);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            var listim = (List<Employee>?)serializer.Deserialize(file);
-            file.Close();
-            if (listim == null)
-            {
-                return new List<Employee>();
-            }
-            else
-            {
-                return listim;
-            }
-        }
-
-
-        public void SearchEmployee()
-        {
-            Console.WriteLine("\nAxtardığınız işçinin adını daxil edin: ");
-            string searchName = Console.ReadLine();
-
-            Console.WriteLine("\nAxtardığınız işçinin soyadını daxil edin: ");
-            string searchLastName = Console.ReadLine();
-
-            bool found = false;
-
-            foreach (var item in listemployees)
-            {
-                if (item.LName.ToLower() == searchName.ToLower() && item.LName.ToLower() == searchLastName.ToLower())
-                {
-                    found = true;
-
-                    if (item is Employee isci)
-                    {
-                        Console.WriteLine($"Tapildi: Adı: {isci.LName} - Soyadı: {isci.LName}");
-                    }
-                }
-            }
-
-            if (!found)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Axtarışa uyğun işçi tapılmadı.");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-
-        #endregion
-
-
 
 
         #region Product/Derman
@@ -217,12 +138,10 @@ namespace Aptek_Poreject
             }
         }
 
-        //public void RemoveProduct(Product product)
-        //{
-        //    listproducts.Remove(product);
-        //}
-
-        //Product derman = new Product();
+        public void RemoveProduct(Product product)
+        {
+            listproducts.Remove(product);
+        }
 
 
         #endregion

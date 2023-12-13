@@ -8,8 +8,10 @@ namespace Aptek_Poreject
 {
     public static class Authenticate
     {
+        static Admin adminobj = new Admin();
         public static bool AuthenticateMusteri()
         {
+
             Console.WriteLine("\n-----------------------------------");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Xaiş edirik işçi kimi proqrama giriş etmək üçün aşağıda email adresinizi və şifrənizi daxil edin: ");
@@ -38,7 +40,7 @@ namespace Aptek_Poreject
         {
             Console.WriteLine("\n-----------------------------------");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Xaiş edirik işçi kimi proqrama giriş etmək üçün aşağıda email adresinizi və şifrənizi daxil edin: ");
+            Console.WriteLine("Xaiş edirik admin kimi proqrama giriş etmək üçün aşağıda email adresinizi və şifrənizi daxil edin: ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n-----------------------------------");
 
@@ -53,13 +55,9 @@ namespace Aptek_Poreject
             if (adminMail == "admin@mail.com" && adminSifre == "admin123")
             {
                 return true;
-
-
             }
 
             return false;
-
-
         }
 
 
@@ -93,7 +91,7 @@ namespace Aptek_Poreject
                 Console.WriteLine("Diqqət! dəyər boşdur və ya null-dır.");
             }
 
-            var isciler = aptekim.GetEmplooyes();
+            var isciler = adminobj.GetEmplooyes();
 
             foreach (var isci in isciler)
             {
@@ -109,6 +107,6 @@ namespace Aptek_Poreject
             // isci.FName == ad && isci.LName == soyad
         }
 
-        
+
     }
 }

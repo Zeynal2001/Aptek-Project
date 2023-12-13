@@ -12,7 +12,7 @@ namespace Aptek_Poreject
         {
             Console.WriteLine("\n-----------------------------------");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Xoş gəlmisiniz. Girişi seçin: ");
+            Console.WriteLine("Xoş gəlmisiniz. Girişi seçin: (1/4)");
             Console.WriteLine("1. Admin kimi");
             Console.WriteLine("2. İşçi kimi. ");
             Console.WriteLine("3. Müştəri kimi. ");
@@ -25,7 +25,7 @@ namespace Aptek_Poreject
         {
             Console.WriteLine("\n-----------------------------------");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("\nAşağıda etmək istədiyiniz əməliyyatı seçin (1/12)");
+            Console.WriteLine("\nAşağıda etmək istədiyiniz əməliyyatı seçin (1/6)");
             Console.WriteLine("1. Proqramdan çıxış etmək.");
             Console.WriteLine("2. İşçi elave etmek. ");
             Console.WriteLine("3. İşçi siyahısını göstərmək.");
@@ -57,5 +57,18 @@ namespace Aptek_Poreject
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("-----------------------------------");
         }
+
+        public static void MusteriDisplayMenu()
+        {
+            Console.WriteLine("\n-----------------------------------");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Xoş gəlmisiniz. Etmək istədiyiniz əməliyyatı seçin: (1/3)");
+            Console.WriteLine("1. Dərmanlara baxmaq.");
+            Console.WriteLine("2. Dərman alamaq.");
+            Console.WriteLine("3. Proqramdan çıxış etmək.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("-----------------------------------");
+        }
+
     }
 }
