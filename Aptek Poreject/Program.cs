@@ -11,10 +11,11 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 Aptek aptek = new Aptek();
 Employee iscim = new Employee();
 Admin adminobj2 = new Admin();
+Product dermanobj = new Product();
 Menu.MainDisplayMenu();
 
 int secim1 = 0;
-if (int.TryParse(Console.ReadLine(), out secim2))
+if (int.TryParse(Console.ReadLine(), out secim1))
 {
     
                     
@@ -67,6 +68,9 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                         case 6:
 
                             break;
+                        default:
+
+                            break;
                     }
                 }
             }
@@ -89,60 +93,64 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                     // Menyunun göstərilməsi üçün DisplayMenu metodu çağrılır.
                     Menu.EmployeeDisplayMenu();
 
-                    int secim2 = int.Parse(Console.ReadLine());
                     try
                     {
+                        int secim2 = int.Parse(Console.ReadLine());
 
                         switch (secim2)
+                        {
                             case 1:
-                            // Programın bağlanması.
-                            Console.WriteLine("Proqram bağlandı.");
-                            return;
-                        case 2:
-                            // Müştəri əlavə etmək
-                            iscim.AddMusteri();
-                            break;
-                        case 3:
-                            // Müştəri siyahısının göstərilməsi.
-                            iscim.DisplayMusteri();
-                            break;
-                        case 4:
-                            // Müştəri hesabının axtarılması.
-                            iscim.SearchMusteri();
-                            break;
-                        case 5:
-                            // Müştəri məlumanlarının yenilənmısi.
+                                // Programın bağlanması.
+                                Console.WriteLine("Proqram bağlandı.");
+                                return;
+                            case 2:
+                                // Müştəri əlavə etmək
+                                iscim.AddMusteri();
+                                break;
+                            case 3:
+                                // Müştəri siyahısının göstərilməsi.
+                                iscim.DisplayMusteri();
+                                break;
+                            case 4:
+                                // Müştəri hesabının axtarılması.
+                                iscim.SearchMusteri();
+                                break;
+                            case 5:
+                                // Müştəri məlumanlarının yenilənmısi.
 
-                            break;
-                        case 6:
-                            // Mövcud olan Müştəri hesabının bazadan silinməsi
-                            break;
-                        case 7:
-                            // Aptekə yeni dərmanın əlavə edilməsi.
-                            aptek.AddProduct();
-                            break;
-                        case 8:
-                            // Aptekdəki dərmanların siyahısının göstərilməsi.
-                            aptek.DisplayDermanlar();
-                            break;
-                        case 9:
-                            // Dərmanın axtarılması.
-                            aptek.SearchMedicine();
-                            break;
-                        case 10:
-                            // Dərman məlumanlarının yenilənmısi.
+                                break;
+                            case 6:
+                                // Mövcud olan Müştəri hesabının bazadan silinməsi
+                                break;
+                            case 7:
+                                // Aptekə yeni dərmanın əlavə edilməsi.
+                                aptek.AddProduct();
+                                break;
+                            case 8:
+                                // Aptekdəki dərmanların siyahısının göstərilməsi.
+                                aptek.DisplayDermanlar();
+                                break;
+                            case 9:
+                                // Dərmanın axtarılması.
+                                aptek.SearchMedicine();
+                                break;
+                            case 10:
+                                // Dərman məlumanlarının yenilənmısi.
 
-                            break;
-                        case 11:
-                            // Mövcud olan dərmanın bazadan silinməsi
-                            aptek.RemoveProduct();
-                            break;
-                        default:
-                            //Yanlış seçim
+                                break;
+                            case 11:
+                                // Mövcud olan dərmanın bazadan silinməsi
+                                Console.WriteLine("Dərmanın adını daxil edin:");
+                                string dermanAdi = Console.ReadLine();
 
-                            break;
+                                Product derman = new Product(dermanadi: dermanAdi);
+                                aptek.RemoveProduct(derman);
+                                break;
+                            default:
+                                //Yanlış seçim
+
+                                break;
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -152,7 +160,7 @@ if (int.TryParse(Console.ReadLine(), out secim2))
                     finally
                     {
                         // Bura əlavə təmizləmə və ya başqa tədbirlər əlavə edilə bilər.
-                        Thread.Sleep(3000);
+                        Thread.Sleep(5000);
                         Console.Clear();
                     }
                 }

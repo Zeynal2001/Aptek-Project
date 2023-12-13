@@ -18,5 +18,10 @@
             Price = price;
             Quantity = quantity;
         }
+
+        public Product(string dermanadi)
+        {
+            PName = dermanadi;
+        }
     }
 }

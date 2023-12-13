@@ -143,8 +143,6 @@ namespace Aptek_Poreject
             listproducts.Remove(product);
         }
 
-
         #endregion
-
     }
 }
