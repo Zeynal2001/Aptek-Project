@@ -136,19 +136,19 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                                 break;
                             case 10:
                                 // Dərman məlumanlarının yenilənmısi.
-
+                                
                                 break;
                             case 11:
                                 // Mövcud olan dərmanın bazadan silinməsi
                                 Console.WriteLine("Dərmanın adını daxil edin:");
-                                string dermanAdi = Console.ReadLine();
+                                string silinecekD = Console.ReadLine();
 
-                                Product derman = new Product(dermanadi: dermanAdi);
-                                aptek.RemoveProduct(derman);
+                                Product Sderman = new Product(dermanadi: silinecekD);
+                                aptek.RemoveProduct(Sderman);
                                 break;
                             default:
                                 //Yanlış seçim
-
+                                Console.WriteLine("Seçim düzgün deyil.");
                                 break;
                         }
                     }

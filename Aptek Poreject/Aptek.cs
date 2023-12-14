@@ -140,7 +140,14 @@ namespace Aptek_Poreject
 
         public void RemoveProduct(Product product)
         {
-            listproducts.Remove(product);
+            if (listproducts.Remove(product))
+            {
+                Console.WriteLine($"{product} adlı dərman silindi.");
+            }
+            else
+            {
+                Console.WriteLine("Belə bir dərman mövcud deyil.");
+            }
         }
 
         #endregion
