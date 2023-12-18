@@ -26,58 +26,72 @@ if (int.TryParse(Console.ReadLine(), out secim1))
             //Admin kimi giriş etmək.
             if (Authenticate.AuthenticateAdmin())
             {
-                LoginAttemp.LoginAttemps1();
-                
                 while (true)
                 {
                     //TODO: while yaz
                     Menu.AdminMenu();
-
-                    int deyer = int.Parse(Console.ReadLine());
-                    switch (deyer)
+                    try
                     {
-                        case 1:
-                            // Yeni işçi əlavə etmək.
+                        int deyer = int.Parse(Console.ReadLine());
+                        switch (deyer)
+                        {
+                            case 1:
+                                // Programın bağlanması.
+                                Console.WriteLine("Proqram bağlandı.");
+                                return;
+                            case 2:
+                                // Yeni işçi əlavə etmək.
+                                Console.WriteLine("İşçinin adını daxil edin:");
+                                string adminAdi = Console.ReadLine();
+                                Console.WriteLine("İşçinin soyadını daxil edin: ");
+                                string adminSoyadi = Console.ReadLine();
+                                Console.WriteLine("İşçinin email adresini daxil edin:");
+                                string adminEmail = Console.ReadLine();
+                                Console.WriteLine("İşçinin şifrəsini daxil edin:");
+                                string adminSifresi = Console.ReadLine();
+                                Console.WriteLine("İşçinin nömrəsini daxil edin:");
+                                string adminNomresi = Console.ReadLine();
 
-                            Console.WriteLine("İşçinin adını daxil edin:");
-                            string adminAdi = Console.ReadLine();
-                            Console.WriteLine("İşçinin soyadını daxil edin: ");
-                            string adminSoyadi = Console.ReadLine();
-                            Console.WriteLine("İşçinin email adresini daxil edin:");
-                            string adminEmail = Console.ReadLine();
-                            Console.WriteLine("İşçinin şifrəsini daxil edin:");
-                            string adminSifresi = Console.ReadLine();
-                            Console.WriteLine("İşçinin nömrəsini daxil edin:");
-                            string adminNomresi = Console.ReadLine();
+                                Employee isci5 = new Employee(adminAdi, adminSoyadi, adminEmail, adminSifresi, adminNomresi);
+                                adminobj2.AddEmployee(isci5);
+                                break;
+                            case 3:
+                                // İşçi siyahısının göstərilməsi.
+                                adminobj2.DisplayEmploye();
+                                break;
+                            case 4:
+                                // İşçi hesabının axtarılması.
+                                adminobj2.SearchEmployee();
+                                break;
+                            case 5:
+                                // İşçi məlumanlarının yenilənmısi.
+                                break;
+                            case 6:
+                                // Mövcud olan İşçi hesabının bazadan silinməsi
+                                break;
+                            default:
 
-                            Employee isci5 = new Employee(adminAdi, adminSoyadi, adminEmail, adminSifresi, adminNomresi);
-                            adminobj2.AddEmployee(isci5);
-                            break;
-                        case 2:
-
-                            break;
-                        case 3:
-
-                            break;
-                        case 4:
-
-                            break;
-                        case 5:
-
-                            break;
-                        case 6:
-
-                            break;
-                        default:
-
-                            break;
+                                break;
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        // Əgər proqramın işlənməsi zamanı bir xəta baş verərsə istifadəçiyə bildiriş göstərilir.
+                        Console.WriteLine($"Xəta baş verdi: {ex.Message}");
+                    }
+                    finally
+                    {
+                        // Bura əlavə təmizləmə və ya başqa tədbirlər əlavə edilə bilər.
+                        Thread.Sleep(3000);
+                        Console.Clear();
+                    }
+                    
                 }
+
             }
             else
             {
                 Console.WriteLine("Melumatlar yanlisdir");
-
             }
             break;
         case 2:
@@ -85,8 +99,6 @@ if (int.TryParse(Console.ReadLine(), out secim1))
 
             if (Authenticate.AuthenticateEmployee())
             {
-                LoginAttemp.LoginAttemps2();
-
                 while (true)
                 {
                     //TODO: while yaz
@@ -160,7 +172,7 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                     finally
                     {
                         // Bura əlavə təmizləmə və ya başqa tədbirlər əlavə edilə bilər.
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3000);
                         Console.Clear();
                     }
                 }
@@ -168,14 +180,13 @@ if (int.TryParse(Console.ReadLine(), out secim1))
             else
             {
                 Console.WriteLine("Melumatlar yanlisdir");
+                //LoginAttemp.LoginAttemps2();
             }
             break;
         case 3:
             //Müştəri kimi giriş etmək.
             if (Authenticate.AuthenticateMusteri())
             {
-                LoginAttemp.LoginAttemps3();
-
                 while (true)
                 {
                     Menu.MusteriDisplayMenu();
@@ -205,6 +216,7 @@ if (int.TryParse(Console.ReadLine(), out secim1))
             else
             {
                 Console.WriteLine("Melumatlar yanlisdir");
+                LoginAttemp.LoginAttemps3();
             }
 
 

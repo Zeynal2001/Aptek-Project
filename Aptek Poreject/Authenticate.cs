@@ -105,6 +105,28 @@ namespace Aptek_Poreject
             }
             return false;
             // isci.FName == ad && isci.LName == soyad
+
+            int loginAttemps = 0;
+
+            while (true)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("İşçi maili vəya şifrəsi yanlışdır");
+                Thread.Sleep(1800);
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                loginAttemps++;
+                if (loginAttemps >= 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(
+                        "3 dəfə yanlış İşçi maili və ya şifrə daxil edildiyinə görə proqram bağlandı.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Thread.Sleep(1500);
+                    //return;
+                }
+            }
+            
         }
 
 

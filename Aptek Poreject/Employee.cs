@@ -21,7 +21,8 @@ namespace Aptek_Poreject
         public string IsciSifresii { get; set; }
         public string IsciNomersi { get; set; }
 
-        private List<Musteri> musteriList
+        private List<Musteri> _musteriler;
+        public List<Musteri> musteriList
         {
             get
             {
@@ -35,7 +36,10 @@ namespace Aptek_Poreject
                 }
             }
 
-            set { }
+            set
+            {
+                _musteriler = value;
+            }
         }
 
         public Employee()
@@ -90,17 +94,18 @@ namespace Aptek_Poreject
             else
             {
                 var file = File.Open(musteriPath, FileMode.Create);
-                serializer.Serialize(file, musteris);
+                serializer.Serialize(file, musteriList);
                 file.Close();
             }
         }
 
         public List<Musteri> GetMuseteri()
         {
-            if (!File.Exists(musteriPath))
+            if (File.Exists(musteriPath))
             {
                 return new();
             }
+            Console.WriteLine();
             var file = File.OpenRead(musteriPath);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Musteri>));
             var listim = (List<Musteri>?)serializer.Deserialize(file);

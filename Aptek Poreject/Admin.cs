@@ -20,7 +20,8 @@ namespace Aptek_Poreject
         }
 
         string employeePath = "isciler.xml";
-        private List<Employee> listemployees           //= new List<Employee>();
+        private List<Employee> _isciler;
+        public List<Employee> listemployees           //= new List<Employee>();
         {
             get
             {
@@ -34,7 +35,10 @@ namespace Aptek_Poreject
                 }
             }
 
-            set { }
+            set
+            {
+                _isciler = value;
+            }
         }
 
         public Admin()
@@ -52,16 +56,25 @@ namespace Aptek_Poreject
             //    listemployees = GetEmplooyes();
             //}
 
-
-            listemployees.Add(employee);
-            SaveEmployees();
+            var hazirki = listemployees;
+            hazirki.Add(employee);
+            SaveEmployees(hazirki);
         }
-        public void SaveEmployees()
+        public void SaveEmployees(List<Employee>? isciler = null)
         {
-            var file = File.Open(employeePath, FileMode.Create);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            serializer.Serialize(file, listemployees);
-            file.Close();
+            if (serializer != null)
+            {
+                var file = File.Open(employeePath, FileMode.Create);
+                serializer.Serialize(file, isciler);
+                file.Close();
+            }
+            else
+            {
+                var file = File.Open(employeePath, FileMode.Create);
+                serializer.Serialize(file, listemployees);
+                file.Close();
+            }
         }
 
         public List<Employee> GetEmplooyes()
@@ -83,7 +96,6 @@ namespace Aptek_Poreject
                 return listim;
             }
         }
-
 
         public void DisplayEmploye()
         {

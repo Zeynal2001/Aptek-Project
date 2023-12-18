@@ -62,23 +62,38 @@ namespace Aptek_Poreject
             double dermaninQiymeti = double.Parse(Console.ReadLine());
 
             Product yeniproduct = new Product(pname:dermanAdi, category:dermanKateqoriya, price:dermaninQiymeti, quantity:dermanMiqdari);
-            listproducts = GetProducts();
-            listproducts.Add(yeniproduct);
-            SaveProduct();
+            var indiki = listproducts;
+            indiki.Add(yeniproduct);
+            //listproducts = GetProducts();
+            SaveProduct(indiki);
+            Console.WriteLine("Yeni dərman əlavə edildi.");
         }
 
-        public void SaveProduct()
+        public void SaveProduct(List<Product>? dermanlar = null)
         {
-            var file = File.Open(productPath, FileMode.Create);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Product>));
-            xmlSerializer.Serialize(file, listproducts);
-            file.Close();
+            if (dermanlar != null)
+            {
+                var file = File.Open(productPath, FileMode.Create);
+                xmlSerializer.Serialize(file, dermanlar);
+                file.Close();
+            }
+            else
+            {
+                var file = File.Open(productPath, FileMode.Create);
+                xmlSerializer.Serialize(file, listproducts);
+                file.Close();
+            }
         }
 
         public List<Product> GetProducts()
         {
             try
             {
+                if (!File.Exists(productPath))
+                {
+                    return new();
+                }
                 Console.WriteLine();
                 var file = File.OpenRead(productPath);
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Product>));
@@ -108,7 +123,7 @@ namespace Aptek_Poreject
             }
         }
 
-
+        // TODO: parametr yaradib onun ustunde isleyecek
         public void SearchMedicine()
         {
             Console.WriteLine("\nAxtardığınız dərmanın adını daxil edin: ");
@@ -140,7 +155,7 @@ namespace Aptek_Poreject
 
         public void RemoveProduct(Product product)
         {
-            if (listproducts.Remove(product))
+            if (listproducts.Remove(product) == true)
             {
                 Console.WriteLine($"{product} adlı dərman silindi.");
             }
