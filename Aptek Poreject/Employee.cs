@@ -19,7 +19,7 @@ namespace Aptek_Poreject
         public string LName { get; set; }
         public string IsciMail { get; set; }
         public string IsciSifresii { get; set; }
-        public string IsciNomersi { get; set; }
+        public string IsciNomresi { get; set; }
 
         private List<Musteri> _musteriler;
         public List<Musteri> musteriList
@@ -51,7 +51,7 @@ namespace Aptek_Poreject
             LName = lName;
             IsciMail = isciMail;
             IsciSifresii = isciPassword;
-            IsciNomersi = isciPass;
+            IsciNomresi = isciPass;
         }
 
 
@@ -75,7 +75,7 @@ namespace Aptek_Poreject
             var indiki = musteriList;
             indiki.Add(musteriobj);
             SaveMusteri(indiki);
-
+            Console.WriteLine("Yeni müştəri əlavə edildi.");
             //Product yeniproduct = new Product(name: dermanAdi, category: dermanKateqoriya, price: dermaninQiymeti, quantity: dermanMiqdari);
             //listproducts = GetProducts();
             //listproducts.Add(yeniproduct);
@@ -101,11 +101,10 @@ namespace Aptek_Poreject
 
         public List<Musteri> GetMuseteri()
         {
-            if (File.Exists(musteriPath))
+            if (!File.Exists(musteriPath))
             {
                 return new();
             }
-            Console.WriteLine();
             var file = File.OpenRead(musteriPath);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Musteri>));
             var listim = (List<Musteri>?)serializer.Deserialize(file);
@@ -122,45 +121,61 @@ namespace Aptek_Poreject
 
         public void DisplayMusteri()
         {
+            var count = 1;
             Console.WriteLine("\nQeydiyyatdan keçmiş müştərilər:");
-
-            foreach (var musterim in musteriList)
+            foreach (var musterim1 in musteriList)
             {
-                Console.WriteLine($"Müştərinin adı: {musterim.MusteriAdi} - Soyadı: {musterim.MusteriSoyadi} - Emaili: {musterim.MusteriMail} - Şifrəsi: {musterim.MusteriSifresi} - Nömrəsi: {musterim.MusteriNomresi}");
+                Console.WriteLine($"======İstifadəçi {count}======");
+                Console.WriteLine($"Müştərinin adı: {musterim1.MusteriAdi} - Soyadı: {musterim1.MusteriSoyadi} - Emaili: {musterim1.MusteriMail} - Şifrəsi: {musterim1.MusteriSifresi} - Nömrəsi: {musterim1.MusteriNomresi}");
+                count++;
             }
         }
 
-        public void SearchMusteri()
+        //Musteri musteriobj = new Musteri();
+        public Musteri? SearchMusteri(string ad, string soyad)
         {
-            Console.WriteLine("\nAxtardığınız müştərinin adını daxil edin: ");
-            string searchName = Console.ReadLine();
-
-            Console.WriteLine("\nAxtardığınız müştərinin soyadını daxil edin: ");
-            string searchLastName = Console.ReadLine();
-
-            bool found = false;
-
-            foreach (var item in musteriList)
+            foreach (var musterim2 in musteriList)
             {
-                if (item.MusteriAdi.ToLower() == searchName.ToLower() && item.MusteriSoyadi.ToLower() == searchLastName.ToLower())
+                if (musterim2.MusteriAdi.ToLower() == ad.ToLower() && musterim2.MusteriSoyadi.ToLower() == soyad.ToLower())
                 {
-                    found = true;
-
-                    if (item is Musteri musteri)
-                    {
-                        Console.WriteLine($"Tapildi: Adı: {musteri.MusteriAdi} - Soyadı: {musteri.MusteriSoyadi}, - Mail adresi: {musteri.MusteriMail}, - Şifrəsi: {musteri.MusteriSifresi}, - Nömrəsi: {musteri.MusteriNomresi}");
-                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Tapıldı. Müştərinin adı: {musterim2.MusteriAdi} - Soyadı: {musterim2.MusteriSoyadi} - Emaili: {musterim2.MusteriMail} - Şifrəsi: {musterim2.MusteriSifresi} - Nömrəsi: {musterim2.MusteriNomresi}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    return musterim2;
                 }
             }
 
-            if (!found)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Axtarışa uyğun müştəri tapılmadı.");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Axtarışa uyğun işçi tapılmadı.");
+            Console.ForegroundColor = ConsoleColor.White;
+            return null;
         }
+
+
+        public bool MusteriniDeyis(int musterinum, Musteri deyisdirilmisM)
+        {
+            var deyiselecek = musteriList;
+
+            for (int i = 0; i <= deyiselecek.Count; i++)
+            {
+                if (musterinum == (i + 1))
+                {
+                    var kohnederman = deyiselecek[i];
+                    deyisdirilmisM.MusteriAdi = string.IsNullOrWhiteSpace(deyisdirilmisM.MusteriAdi) ? kohnederman.MusteriAdi : deyisdirilmisM.MusteriAdi;
+                    deyisdirilmisM.MusteriSoyadi = string.IsNullOrWhiteSpace(deyisdirilmisM.MusteriSoyadi) ? kohnederman.MusteriSoyadi : deyisdirilmisM.MusteriSoyadi;
+                    deyisdirilmisM.MusteriMail = string.IsNullOrWhiteSpace(deyisdirilmisM.MusteriMail) ? kohnederman.MusteriMail : deyisdirilmisM.MusteriMail;
+                    deyisdirilmisM.MusteriSifresi = string.IsNullOrWhiteSpace(deyisdirilmisM.MusteriSifresi) ? kohnederman.MusteriSifresi : deyisdirilmisM  .MusteriSifresi;
+                    deyisdirilmisM.MusteriNomresi = string.IsNullOrWhiteSpace(deyisdirilmisM.MusteriNomresi) ? kohnederman.MusteriNomresi : deyisdirilmisM.MusteriNomresi;
+                    deyiselecek[i] = deyisdirilmisM;
+                    SaveMusteri(deyiselecek);
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         #endregion
 
     }

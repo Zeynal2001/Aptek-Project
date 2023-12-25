@@ -59,6 +59,8 @@ namespace Aptek_Poreject
             var hazirki = listemployees;
             hazirki.Add(employee);
             SaveEmployees(hazirki);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Yeni işçi əlavə edildi.");
         }
         public void SaveEmployees(List<Employee>? isciler = null)
         {
@@ -99,41 +101,58 @@ namespace Aptek_Poreject
 
         public void DisplayEmploye()
         {
+            var count = 1;
+            Console.WriteLine("\nİşçilər :");
             foreach (var employee in listemployees)
             {
-                Console.WriteLine($"İşçinin adı: {employee.FName} - Soyadı: {employee.LName} - Emaili: {employee.IsciMail} - Şifrəsi: {employee.IsciSifresii} - Nömrəsi: {employee.IsciNomersi}");
+                Console.WriteLine($"======İşçi {count}======");
+                Console.WriteLine($"İşçinin adı: {employee.FName} - Soyadı: {employee.LName} - Emaili: {employee.IsciMail} - Şifrəsi: {employee.IsciSifresii} - Nömrəsi: {employee.IsciNomresi}");
+                count++;
             }
         }
 
-        public void SearchEmployee()
+        
+        public Employee? SearchEmployee(string ad, string soyad)
         {
-            Console.WriteLine("\nAxtardığınız işçinin adını daxil edin: ");
-            string searchName = Console.ReadLine();
-
-            Console.WriteLine("\nAxtardığınız işçinin soyadını daxil edin: ");
-            string searchLastName = Console.ReadLine();
-
-            bool found = false;
-
-            foreach (var item in listemployees)
+            foreach (var isci in listemployees)
             {
-                if (item.LName.ToLower() == searchName.ToLower() && item.LName.ToLower() == searchLastName.ToLower())
+                if (isci.LName.ToLower() == soyad.ToLower() && isci.FName.ToLower() == ad.ToLower())
                 {
-                    found = true;
-
-                    if (item is Employee isci)
-                    {
-                        Console.WriteLine($"Tapildi: Adı: {isci.LName} - Soyadı: {isci.LName}");
-                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Tapildi: Adı: {isci.FName} - Soyadı: {isci.LName}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    return isci;
                 }
             }
 
-            if (!found)
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Axtarışa uyğun işçi tapılmadı.");
+            Console.ForegroundColor = ConsoleColor.White;
+            return null;
+        }
+
+
+        public bool IsciniDeyis(int iscinum, Employee deyisdirilmisI)
+        {
+            var deyiselecek = listemployees;
+
+            for (int i = 0; i <= deyiselecek.Count; i++)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Axtarışa uyğun işçi tapılmadı.");
-                Console.ForegroundColor = ConsoleColor.White;
+                if (iscinum == (i + 1))
+                {
+                    var kohnederman = deyiselecek[i];
+                    deyisdirilmisI.FName = string.IsNullOrWhiteSpace(deyisdirilmisI.FName) ? kohnederman.FName : deyisdirilmisI.FName;
+                    deyisdirilmisI.LName = string.IsNullOrWhiteSpace(deyisdirilmisI.LName) ? kohnederman.LName : deyisdirilmisI.LName;
+                    deyisdirilmisI.IsciMail = string.IsNullOrWhiteSpace(deyisdirilmisI.IsciMail) ? kohnederman.IsciMail : deyisdirilmisI.IsciMail;
+                    deyisdirilmisI.IsciSifresii = string.IsNullOrWhiteSpace(deyisdirilmisI.IsciSifresii) ? kohnederman.IsciSifresii : deyisdirilmisI.IsciSifresii;
+                    deyisdirilmisI.IsciNomresi = string.IsNullOrWhiteSpace(deyisdirilmisI.IsciNomresi) ? kohnederman.IsciNomresi : deyisdirilmisI.IsciNomresi;
+                    deyiselecek[i] = deyisdirilmisI;
+                    SaveEmployees(deyiselecek);
+
+                    return true;
+                }
             }
+            return false;
         }
 
         #endregion

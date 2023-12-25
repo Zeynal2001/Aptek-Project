@@ -94,7 +94,6 @@ namespace Aptek_Poreject
                 {
                     return new();
                 }
-                Console.WriteLine();
                 var file = File.OpenRead(productPath);
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Product>));
                 var productlistim = (List<Product>?)xmlSerializer.Deserialize(file);
@@ -116,54 +115,89 @@ namespace Aptek_Poreject
 
         public void DisplayDermanlar()
         {
+            var count = 1;
             Console.WriteLine("\nAptekdəki dərmanlar:");
             foreach (var item in listproducts)
             {
+                Console.WriteLine($"======Dərman {count}======");
                 Console.WriteLine($"Dərmanın adı: {item.PName} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
+                count++;
             }
         }
 
         // TODO: parametr yaradib onun ustunde isleyecek
-        public void SearchMedicine()
+       //Product dermanobj = new Product();
+        public Product? SearchMedicine(string dermanad)
         {
-            Console.WriteLine("\nAxtardığınız dərmanın adını daxil edin: ");
-            string searchPName = Console.ReadLine();
-
-
-            bool found = false;
-
-            foreach (var item in listproducts)
+            
+            foreach (var derman in listproducts)
             {
-                if (item.PName.ToLower() == searchPName.ToLower())
+                if (derman.PName.ToLower() == dermanad.ToLower())
                 {
-                    found = true;
+                    Console.WriteLine($"Tapıldı: Adı: {derman.PName} - Kateqoriyası: {derman.Category}," +
+                        $" Qiyməti: {derman.Price}, Miqdarı: {derman.Quantity}");
 
-                    if (item is Product derman)
-                    {
-                        Console.WriteLine($"Tapildi: Adı: {derman.PName} - Kateqoriya: {item.Category} - Miqdarı: {item.Quantity} - Qiyməti: {item.Price}");
-                    }
+                    return derman;
                 }
             }
-
-            if (!found)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Axtarışa uyğun dərman tapılmadı.");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Axtarışa uyğun dərman tapılmadı.");
+            Console.ForegroundColor = ConsoleColor.White;
+            return null;
         }
 
-        public void RemoveProduct(Product product)
+        public bool DermaniDeyis(int productnum, Product deyisdirilmisD)
         {
-            if (listproducts.Remove(product) == true)
+            var deyiselecek = listproducts;
+
+            for (int i = 0; i <= deyiselecek.Count; i++)
             {
-                Console.WriteLine($"{product} adlı dərman silindi.");
+                if (productnum == (i + 1))
+                {
+                    var kohnederman = deyiselecek[i];
+                    deyisdirilmisD.PName = string.IsNullOrWhiteSpace(deyisdirilmisD.PName) ? kohnederman.PName : deyisdirilmisD.PName;
+                    deyisdirilmisD.Category = string.IsNullOrWhiteSpace (deyisdirilmisD.Category) ? kohnederman.Category : deyisdirilmisD.Category;
+                    deyisdirilmisD.Price = deyisdirilmisD.Price == 0 ? kohnederman.Price : deyisdirilmisD.Price;
+                    deyisdirilmisD.Quantity = deyisdirilmisD.Quantity == 0 ? kohnederman.Quantity : deyisdirilmisD.Quantity;
+                    deyiselecek[i] = deyisdirilmisD;
+                    SaveProduct(deyiselecek);
+
+                    return true;
+                }
             }
-            else
-            {
-                Console.WriteLine("Belə bir dərman mövcud deyil.");
-            }
+            return false;
         }
+
+
+        public bool RemoveProduct(int silineceknum)
+        {
+            var silinecekDermanlar = listproducts;
+
+            for (int i = 0; i < silinecekDermanlar.Count; i++)
+            {
+                if (silineceknum == (i + 1))
+                {
+                    silinecekDermanlar.RemoveAt(i);
+                    SaveProduct(silinecekDermanlar);
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+
+
+
+        
+            //if (listproducts.Remove(product) == true)
+            //{
+            //    Console.WriteLine($"{product} adlı dərman silindi.");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Belə bir dərman mövcud deyil.");
+            //}
+
 
         #endregion
     }
