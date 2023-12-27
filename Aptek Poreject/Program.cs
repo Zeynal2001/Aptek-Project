@@ -114,6 +114,24 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                             break;
                         case 6:
                             // Mövcud olan İşçi hesabının bazadan silinməsi
+                            adminobj2.DisplayEmploye();
+
+                            Console.WriteLine("\nSilinəcək işçinin sıra sayını girin: ");
+                            int silinecekIs = int.Parse(Console.ReadLine());
+
+                            bool silindimiIs = adminobj2.RemoveEmployee(silinecekIs);
+                            if (silindimiIs)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("İşçi uğurla bazadan silindi");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Daxil edilen sıra sayına uyğun işçi tapılmadı");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
                             break;
                         default:
                             Console.WriteLine("Seçim düzgün deyil.");
@@ -171,11 +189,11 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                         case 4:
                             // Müştəri hesabının axtarılması.
                             Console.WriteLine("Tapmaq istədiyiniz müştərinin adını daxil edin:");
-                            string musad = Console.ReadLine();
+                            string musAd = Console.ReadLine();
                             Console.WriteLine("Tapmaq istədiyiniz müştərinin soyadını daxil edin:");
-                            string mussoyad = Console.ReadLine();
+                            string musSoyad = Console.ReadLine();
 
-                            var tapilacaqMus = iscim.SearchMusteri(musad, mussoyad);
+                            var tapilacaqMus = iscim.SearchMusteri(musAd, musSoyad);
                             if (tapilacaqMus == null)
                             {
                                 Console.WriteLine("Müştəri tapılmadı");
@@ -215,6 +233,25 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                             break;
                         case 6:
                             // Mövcud olan Müştəri hesabının bazadan silinməsi
+                            iscim.DisplayMusteri();
+
+                            Console.WriteLine("\nSilinəcək müştərinin sıra sayını girin: ");
+                            int silinecekM = int.Parse(Console.ReadLine());
+
+
+                            bool silindimiMus = iscim.RemoveMusteri(silinecekM);
+                            if (silindimiMus)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Müştəri uğurla bazadan silindi");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Daxil edilen sıra sayına uyğun müştəri tapılmadı");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
                             break;
                         case 7:
                             // Aptekə yeni dərmanın əlavə edilməsi.
@@ -254,8 +291,8 @@ if (int.TryParse(Console.ReadLine(), out secim1))
 
                             Product yeniD = new Product(pname: yeniad, category: yenikateqoriya, price: yeniqiymet, quantity: yenimiqdar);
 
-                            bool deyisildimi = aptek.DermaniDeyis(secim_derman, yeniD);
-                            if (deyisildimi)
+                            bool deyisildimiDer = aptek.DermaniDeyis(secim_derman, yeniD);
+                            if (deyisildimiDer)
                             {
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Məlumatlar uğurla dəyişildi");
@@ -275,8 +312,8 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                             Console.WriteLine("\nSilinəcək dərmanın sıra sayını girin: ");
                             int silinecekD = int.Parse(Console.ReadLine());
 
-                            bool silindimi = aptek.RemoveProduct(silinecekD);
-                            if (silindimi)
+                            bool silindimiDer = aptek.RemoveProduct(silinecekD);
+                            if (silindimiDer)
                             {
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Dərman uğurla bazadan silindi");
@@ -325,24 +362,61 @@ if (int.TryParse(Console.ReadLine(), out secim1))
             {
                 Menu.MusteriDisplayMenu();
 
-                int secim3 = int.Parse(Console.ReadLine());
-                switch (secim3)
+                try
                 {
-                    case 1:
-                        // Dərmanlara baxmaq.
-                        aptek.DisplayDermanlar();
-                        break;
-                    case 2:
-                        // Dərman almaq.
+                    int secim3 = int.Parse(Console.ReadLine());
+                    switch (secim3)
+                    {
+                        case 1:
+                            // Dərmanlara baxmaq.
+                            aptek.DisplayDermanlar();
+                            break;
+                        case 2:
+                            // Dərman almaq.
+                            aptek.DisplayDermanlar();
 
-                        break;
-                    case 3:
-                        // Proqramdan çıxmaq.
-                        Console.WriteLine("Proqram bağlandı.");
-                        return;
-                    default:
+                            Console.WriteLine("\nAlmaq istədiyiniz dərmanın sıra sayını girin: ");
+                            int alinacaqD = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Miqdarı daxil edin");
+                            int miqdarD = int.Parse(Console.ReadLine());
 
-                        break;
+                            aptek.QiymetCixartmaq(alinacaqD, miqdarD);
+
+                            bool alindimiD = aptek.DermanAlmaq(alinacaqD, miqdarD);
+                            if (alindimiD)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Dərman uğurla alındı. Həmişə sağlam qalın 😊");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Daxil edilen sıra sayına uyğun dərman tapılmadı vəya başqa bir xəta meydana gəldi.");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            break;
+                        case 3:
+                            // Proqramdan çıxmaq.
+                            Console.WriteLine("Proqram bağlandı.");
+                            return;
+                        default:
+
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Əgər proqramın işlənməsi zamanı bir xəta baş verərsə istifadəçiyə bildiriş göstərilir.
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Xəta baş verdi: {ex.Message}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                finally
+                {
+                    // Bura əlavə təmizləmə və ya başqa tədbirlər əlavə edilə bilər.
+                    Thread.Sleep(3000);
+                    Console.Clear();
                 }
             }
             break;

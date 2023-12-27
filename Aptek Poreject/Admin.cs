@@ -155,6 +155,23 @@ namespace Aptek_Poreject
             return false;
         }
 
+
+        public bool RemoveEmployee(int silineceknum)
+        {
+            var silinecekIsciler = listemployees;
+
+            for (int i = 0; i < silinecekIsciler.Count; i++)
+            {
+                if (silineceknum == (i + 1))
+                {
+                    silinecekIsciler.RemoveAt(i);
+                    SaveEmployees(silinecekIsciler);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
     }
 }

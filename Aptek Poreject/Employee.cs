@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -22,6 +23,8 @@ namespace Aptek_Poreject
         public string IsciNomresi { get; set; }
 
         private List<Musteri> _musteriler;
+
+        [XmlIgnore]
         public List<Musteri> musteriList
         {
             get
@@ -174,6 +177,24 @@ namespace Aptek_Poreject
             }
             return false;
         }
+
+
+        public bool RemoveMusteri(int silineceknum)
+        {
+            var silinecekMusteriler = musteriList;
+
+            for (int i = 0; i < silinecekMusteriler.Count; i++)
+            {
+                if (silineceknum == (i + 1))
+                {
+                    silinecekMusteriler.RemoveAt(i);
+                    SaveMusteri(silinecekMusteriler);
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
 
         #endregion

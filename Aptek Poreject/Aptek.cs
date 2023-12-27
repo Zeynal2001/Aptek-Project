@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
 
 namespace Aptek_Poreject
@@ -169,14 +170,15 @@ namespace Aptek_Poreject
         }
 
 
-        public bool RemoveProduct(int silineceknum)
+        public bool RemoveProduct(int silineceknum1)
         {
             var silinecekDermanlar = listproducts;
 
             for (int i = 0; i < silinecekDermanlar.Count; i++)
             {
-                if (silineceknum == (i + 1))
+                if (silineceknum1 == (i + 1))
                 {
+                    //silinecekDermanlar[i].Quantity - miqar
                     silinecekDermanlar.RemoveAt(i);
                     SaveProduct(silinecekDermanlar);
                     return true;
@@ -184,20 +186,79 @@ namespace Aptek_Poreject
             }
             return false;
         }
-        
 
 
+        public bool DermanAlmaq(int alinacaqnum1, int miqdar1)
+        {
+            var alinacaqDerman1 = listproducts;
 
-        
-            //if (listproducts.Remove(product) == true)
-            //{
-            //    Console.WriteLine($"{product} adlı dərman silindi.");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Belə bir dərman mövcud deyil.");
-            //}
+            for (int i = 0; i < alinacaqDerman1.Count; i++)
+            {
+                if (alinacaqnum1 == (i + 1))
+                {
+                    if (alinacaqDerman1[i].Quantity >= miqdar1)
+                    {
+                        //alinacaqDerman[i].Quantity = alinacaqDerman[i].Quantity - miqdar;
+                        alinacaqDerman1[i].Quantity -= miqdar1;
+                        SaveProduct(alinacaqDerman1); 
+                        return true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Dəyər mənfi və ya mövcud miqdardan çox ola bilməz!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        return false;
+                    }
+                }
+            }
 
+            return false;
+        }
+
+
+        public bool QiymetCixartmaq(int alinacaqnum2, int miqdar2)
+        {
+            var alinacaqDerman2 = listproducts;
+
+            for (int i = 0; i < alinacaqDerman2.Count; i++)
+            {
+                if (alinacaqnum2 == (i + 1))
+                {
+                    if (alinacaqDerman2[i].Quantity >= miqdar2)
+                    {
+                        var sum = miqdar2 * alinacaqDerman2[i].Price;
+                        Console.WriteLine($"Ödənilməli məbləğ: {sum}");
+
+                        Console.WriteLine("Ödənişi edin/məbləği daxil edin:");
+                        double mebleg = double.Parse(Console.ReadLine());
+                        if (sum == mebleg)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Ödəniş təsdiqləndi.");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Ödəniş təsdiqlənmədi.");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            return false;
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Daxil edilən dəyər mənfi və ya mövcud miqdardan çox ola bilməz!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
 
         #endregion
     }
