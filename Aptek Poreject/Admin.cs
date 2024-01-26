@@ -34,7 +34,6 @@ namespace Aptek_Poreject
                     return new List<Employee>();
                 }
             }
-
             set
             {
                 _isciler = value;
@@ -61,11 +60,12 @@ namespace Aptek_Poreject
             SaveEmployees(hazirki);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Yeni işçi əlavə edildi.");
+            Console.ForegroundColor= ConsoleColor.White;
         }
         public void SaveEmployees(List<Employee>? isciler = null)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
-            if (serializer != null)
+            if (isciler != null)
             {
                 var file = File.Open(employeePath, FileMode.Create);
                 serializer.Serialize(file, isciler);
@@ -119,7 +119,7 @@ namespace Aptek_Poreject
                 if (isci.LName.ToLower() == soyad.ToLower() && isci.FName.ToLower() == ad.ToLower())
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Tapildi: Adı: {isci.FName} - Soyadı: {isci.LName}");
+                    Console.WriteLine($"Tapıldı: Adı: {isci.FName} - Soyadı: {isci.LName}");
                     Console.ForegroundColor = ConsoleColor.White;
                     return isci;
                 }

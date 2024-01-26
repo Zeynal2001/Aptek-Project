@@ -18,8 +18,6 @@ int secim1 = 0;
 if (int.TryParse(Console.ReadLine(), out secim1))
 {
     
-                    
- 
     switch (secim1)
     {
         case 1:
@@ -81,7 +79,7 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                             }
                             break;
                         case 5:
-                            // İşçi məlumanlarının yenilənmısi.
+                            // İşçi məlumanlarının yenilənməsi.
                             adminobj2.DisplayEmploye();
 
                             Console.WriteLine("Məlumatlarını dəyişmək istədiyniz işçinin sıra sayını girin: ");
@@ -201,7 +199,7 @@ if (int.TryParse(Console.ReadLine(), out secim1))
                             }
                             break;
                         case 5:
-                            // Müştəri məlumanlarının yenilənmısi.
+                            // Müştəri məlumanlarının yenilənməsi.
                             iscim.DisplayMusteri();
 
                             Console.WriteLine("Məlumatlarını dəyişmək istədiyniz müştərinin sıra sayını girin: ");
@@ -433,5 +431,7 @@ if (int.TryParse(Console.ReadLine(), out secim1))
 }
 else
 {
-    Console.WriteLine("Daxil etdiyiniz dəyər doğru formatda deyil!");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("Xəta: Daxil etdiyiniz dəyər doğru formatda deyil!");
+    Console.ForegroundColor = ConsoleColor.White;
 }

@@ -34,15 +34,6 @@ namespace Aptek_Poreject
         Employee isci3 = new Employee();
         public Aptek()
         {
-            //Employee isci = new Employee();
-            //isci.IsciMail = "zeynal@mail.com";
-            //isci.IsciSifresi = "zeynalov";
-            //listemployees.Add( isci );
-            //SaveEmployees();
-            //if (File.Exists(employeePath))
-            //{
-            //    listemployees = GetEmplooyes();
-            //}
             listproducts = GetProducts();
         }
 

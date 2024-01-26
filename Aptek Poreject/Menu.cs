@@ -34,7 +34,6 @@ namespace Aptek_Poreject
             Console.WriteLine("6. Mövcud işçi hesabını silmək.");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("-----------------------------------");
-
         }
 
         public static void EmployeeDisplayMenu()
@@ -48,7 +47,6 @@ namespace Aptek_Poreject
             Console.WriteLine("4. Müştəri hesabını axtarmaq.");
             Console.WriteLine("5. Müştəri məlumatlarını yeniləmək.");
             Console.WriteLine("6. Müştəri hesabını silmək.");
-
             Console.WriteLine("7. Dərmanı əlavə etmək.");
             Console.WriteLine("8. Aptekdəki dərman siyahısını göstərmək.");
             Console.WriteLine("9. Dərmanı axtarmaq.");

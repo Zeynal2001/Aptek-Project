@@ -78,7 +78,9 @@ namespace Aptek_Poreject
             var indiki = musteriList;
             indiki.Add(musteriobj);
             SaveMusteri(indiki);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Yeni müştəri əlavə edildi.");
+            Console.ForegroundColor = ConsoleColor.Red;
             //Product yeniproduct = new Product(name: dermanAdi, category: dermanKateqoriya, price: dermaninQiymeti, quantity: dermanMiqdari);
             //listproducts = GetProducts();
             //listproducts.Add(yeniproduct);
